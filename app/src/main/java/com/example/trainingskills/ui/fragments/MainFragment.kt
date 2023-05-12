@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.trainingskills.R
 import com.example.trainingskills.databinding.FragmentMainBinding
 import com.example.trainingskills.ui.adapters.TaskAdapter
 import com.example.trainingskills.ui.viewmodels.MainViewModel
 import com.example.trainingskills.utils.Resource
+import com.example.trainingskills.utils.showDialog
 
 class MainFragment : Fragment() {
 
@@ -44,11 +47,16 @@ class MainFragment : Fragment() {
                 is Resource.Success -> {
                     binding.rvTasks.apply {
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter = TaskAdapter(it.data.data)
+                        adapter = TaskAdapter(it.data.data) {
+                            findNavController().navigate(R.id.action_mainFragment_to_taskFragment)
+                        }
                     }
                 }
 
-                is Resource.Error -> {}
+                is Resource.Error -> {
+                    showDialog("Error", it.message)
+                }
+
                 is Resource.Loading -> {}
             }
         }
