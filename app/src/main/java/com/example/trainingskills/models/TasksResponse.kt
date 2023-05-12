@@ -1,7 +1,7 @@
 package com.example.trainingskills.models
 
-data class LoginResponse(
+data class TasksResponse(
     val success: Boolean,
-    val data: LoginData,
+    val data: List<TaskData>,
     val message: String
 )

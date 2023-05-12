@@ -1,6 +1,6 @@
 package com.example.trainingskills.models
 
-data class Data(
+data class LoginData(
     val token: String,
     val name: String
 )
