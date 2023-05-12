@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trainingskills.databinding.FragmentMainBinding
+import com.example.trainingskills.ui.adapters.TaskAdapter
 import com.example.trainingskills.ui.viewmodels.MainViewModel
 import com.example.trainingskills.utils.Resource
 
@@ -39,7 +41,13 @@ class MainFragment : Fragment() {
     private fun setObservers() {
         viewModel.tasks.observe(viewLifecycleOwner) {
             when (it) {
-                is Resource.Success -> {}
+                is Resource.Success -> {
+                    binding.rvTasks.apply {
+                        layoutManager = LinearLayoutManager(requireContext())
+                        adapter = TaskAdapter(it.data.data)
+                    }
+                }
+
                 is Resource.Error -> {}
                 is Resource.Loading -> {}
             }
